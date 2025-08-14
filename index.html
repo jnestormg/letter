@@ -233,6 +233,23 @@
             font-weight: bold;
         }
 
+        /* Estilos para el botón dentro de la carta */
+        #btnDescubrir {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #c0392b;
+            color: white;
+            font-size: 1em;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 10px;
+            transition: background-color 0.3s ease;
+        }
+        #btnDescubrir:hover {
+            background-color: #a02c21;
+        }
+
         /* Estilos para el modal */
         .modal {
             display: flex;
@@ -295,7 +312,7 @@
         }
         .btn-no {
             background-color: #f44336;
-            position: relative; /* Agregado para que la animación de 'mouseover' funcione */
+            position: relative;
         }
         .btn-si:hover {
             background-color: #45a049;
@@ -325,6 +342,7 @@
                 <div class="letter">
                     <img src="https://img.freepik.com/vector-premium/pulgar-dedos-imprimir-marca-huella-dactilar-amor-corazon_53500-1839.jpg" alt="love1" class="custom-image">
                     <p>Cuanto más tiempo estoy contigo <span class="highlight">más te amo!</span></p>
+                    <button id="btnDescubrir">Haz clic para saber más 💖</button>
                     <img src="arlen_foto.jpeg" alt="love2" class="custom-image2">
                 </div>
             </div>
@@ -356,16 +374,15 @@
         });
 
         const envelope = document.querySelector(".envelope");
+        const btnDescubrir = document.getElementById('btnDescubrir');
         const miModal = document.getElementById('miModal');
         const cerrarModalBtn = document.getElementById('cerrarModal');
         const btnSi = document.getElementById('btnSi');
         const btnNo = document.getElementById('btnNo');
 
-        // Mostrar el modal al hacer clic en el sobre, con un pequeño retraso
-        envelope.addEventListener('click', () => {
-            setTimeout(() => {
-                miModal.classList.add('visible');
-            }, 1000); // 1 segundo de retraso para la animación
+        // Modificado: Se eliminó el evento del sobre y se añadió al botón
+        btnDescubrir.addEventListener('click', () => {
+            miModal.classList.add('visible');
         });
 
         // Cerrar el modal al hacer clic en el botón de cerrar 'x'
