@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Ti ❤️</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Pantalla inicial -->
+    <div class="overlay" id="pantallaInicio">
+        <h1>Hola, Arlen mi niña hermosa 💌</h1>
+        <p>
+            Desde que empece a platicar contigo me siento muy emocionado por tener la oportunidad de conocerte personalmente y poder abrazarte.
+        </p>
+        <button id="btnDescubrir">Haz clic para saber más 💖</button>
+    </div>
+
+    <!-- Pantalla de declaración -->
+    <div class="mensaje" id="pantallaMensaje">
+        <h2>Eres mi inspiración ✨</h2>
+        <p>
+            Adoro esa forma de tratar conmigo, esa dulce forma de platicar conmigo, esos ojos tan lindos y tu carita hermosa, esa amabilidad tan atenta y que seas tan linda. Haces que todo sea más lindo. 
+            Me encantaría seguir compartiendo momentos contigo.
+        </p>
+        <button class="btn-si" onclick="enviarWhatsApp()">Sí 💕</button>
+        <button class="btn-no" onmouseover="moverBoton(this)">No 😅</button>
+    </div>
+
+    <script>
+        const btnDescubrir = document.getElementById('btnDescubrir');
+        const pantallaInicio = document.getElementById('pantallaInicio');
+        const pantallaMensaje = document.getElementById('pantallaMensaje');
+
+        btnDescubrir.addEventListener('click', () => {
+            pantallaInicio.style.display = 'none';
+            pantallaMensaje.style.display = 'block';
+        });
+
+        function moverBoton(boton) {
+            const x = Math.floor(Math.random() * 200) - 100;
+            const y = Math.floor(Math.random() * 200) - 100;
+            boton.style.transform = `translate(${x}px, ${y}px)`;
+        }
+
+        function enviarWhatsApp() {
+            let numero = "5215555555555"; // <-- Cambia a tu número en formato internacional
+            let mensaje = "¡Hola! 💕 Quiero decirte que sí, me encantaría 💖";
+            let url = `https://wa.me/${numero}?text=${encodeURIComponent(mensaje)}`;
+            window.open(url, "_blank");
+        }
+    </script>
+</body>
+</html>
