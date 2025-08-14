@@ -8,7 +8,7 @@
 
     <style>
         @import url(https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap);
-
+		@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
         *,
         ::before,
         ::after {
@@ -242,7 +242,7 @@
             padding: 10px 20px;
             border: none;
             border-radius: 5px;
-            background-color: #c0392b;
+            background-color: #c26e65;
             color: white;
             font-size: 1em;
             cursor: pointer;
@@ -426,7 +426,7 @@
         });
 
         btnSi.addEventListener('click', () => {
-            const numero = "5215555555555"; // Reemplaza con el número de teléfono con código de país
+            const numero = "2411242594"; // Reemplaza con el número de teléfono con código de país
             const mensaje = "¡Hola! 💕 Quiero decirte que sí, me encantaría 💖";
             const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensaje)}`;
             window.open(url, "_blank");
