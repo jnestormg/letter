@@ -64,7 +64,7 @@
             perspective: 1000px;
             cursor: pointer;
         }
-
+        /* Media query para pantallas grandes */
         @media (min-width: 720px) {
             .envelope {
                 --envelope-width: 600px;
@@ -75,7 +75,14 @@
                 --front-font-size: 1.25rem;
             }
         }
-
+        /* Media query para dispositivos móviles */
+        @media (max-width: 719px) {
+            .envelope {
+                width: 90%;
+                height: auto;
+                --envelope-width: 100%;
+            }
+        }
         .envelope::after {
             content: "";
             position: absolute;
@@ -91,7 +98,6 @@
             background: rgba(56, 6, 6, 0.4);
             filter: blur(var(--shadow-blur));
         }
-
         .envelope:hover {
             --envelope-transform: var(--envelope-transform-hover, 0deg);
             --evelope-rotate-delay: var(--evelope-rotate-delay-hover);
@@ -102,7 +108,6 @@
             --letter-height: var(--letter-height-hover);
             --letter-delay: var(--letter-delay-hover);
         }
-
         .envelope-inner {
             position: relative;
             width: 100%;
@@ -113,7 +118,6 @@
             transform: var(--envelope-transform);
             display: grid;
         }
-
         .envelope-front,
         .envelope-back {
             position: relative;
@@ -126,7 +130,6 @@
             perspective: 1000px;
             isolation: isolate;
         }
-
         .envelope-front {
             color: var(--envelope-clr-txt);
             display: grid;
@@ -149,11 +152,9 @@
         .envelope-front .address > p > span:last-of-type {
             font-weight: 800;
         }
-
         .envelope-back {
             transform: rotateY(180deg);
         }
-
         .envelope-back::after {
             content: "";
             position: absolute;
@@ -167,7 +168,6 @@
                 transparent 300deg
             );
         }
-
         .envelope-back .top-fold {
             position: absolute;
             inset: 0;
@@ -179,7 +179,6 @@
             transition: var(--duration) ease-in-out;
             transition-delay: var(--fold-delay);
         }
-
         .letter {
             position: absolute;
             bottom: 5px;
@@ -221,10 +220,10 @@
         }
         .custom-image2 {
             width: 105px;
-            height: 105px;
-            object-fit: cover;
+            border-radius: 10%;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4);
+            object-fit: contain;
             display: block;
-            clip-path: path("M50 15 C35 -5, 0 0, 0 37.5 C0 60, 25 82, 50 100 C75 82, 100 60, 100 37.5 C100 0, 65 -5, 40 15 Z");
         }
 
         .highlight {
@@ -235,75 +234,75 @@
         }
 
         /* Estilos para el modal */
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 100;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
-    justify-content: center;
-    align-items: center;
-}
-
-.modal-content {
-    background-color: #fefefe;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
-    max-width: 500px;
-    text-align: center;
-    border-radius: 10px;
-    position: relative;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.cerrar {
-    color: #aaa;
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    font-size: 28px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.cerrar:hover,
-.cerrar:focus {
-    color: black;
-    text-decoration: none;
-}
-
-.btn-si,
-.btn-no {
-    margin-top: 20px;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1em;
-    color: white;
-    font-weight: bold;
-    transition: transform 0.3s ease;
-}
-
-.btn-si {
-    background-color: #4CAF50;
-}
-
-.btn-no {
-    background-color: #f44336;
-}
-
-.btn-si:hover {
-    background-color: #45a049;
-}
-
-.btn-no:hover {
-    background-color: #d32f2f;
-}
+        .modal {
+            display: flex;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.3s ease-in-out;
+            opacity: 0;
+            pointer-events: none;
+        }
+        .modal.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .modal-content {
+            background-color: #fefefe;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 500px;
+            text-align: center;
+            border-radius: 10px;
+            position: relative;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .cerrar {
+            color: #aaa;
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .cerrar:hover,
+        .cerrar:focus {
+            color: black;
+            text-decoration: none;
+        }
+        .btn-si,
+        .btn-no {
+            margin-top: 20px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            color: white;
+            font-weight: bold;
+            transition: transform 0.3s ease;
+        }
+        .btn-si {
+            background-color: #4CAF50;
+        }
+        .btn-no {
+            background-color: #f44336;
+            position: relative; /* Agregado para que la animación de 'mouseover' funcione */
+        }
+        .btn-si:hover {
+            background-color: #45a049;
+        }
+        .btn-no:hover {
+            background-color: #d32f2f;
+        }
     </style>
 </head>
 <body>
@@ -326,7 +325,6 @@
                 <div class="letter">
                     <img src="https://img.freepik.com/vector-premium/pulgar-dedos-imprimir-marca-huella-dactilar-amor-corazon_53500-1839.jpg" alt="love1" class="custom-image">
                     <p>Cuanto más tiempo estoy contigo <span class="highlight">más te amo!</span></p>
-                    <button id="btnDescubrir">Haz clic para saber más 💖</button>
                     <img src="arlen_foto.jpeg" alt="love2" class="custom-image2">
                 </div>
             </div>
@@ -357,38 +355,55 @@
             }
         });
 
-        const btnDescubrir = document.getElementById('btnDescubrir');
+        const envelope = document.querySelector(".envelope");
         const miModal = document.getElementById('miModal');
         const cerrarModalBtn = document.getElementById('cerrarModal');
         const btnSi = document.getElementById('btnSi');
         const btnNo = document.getElementById('btnNo');
 
-        btnDescubrir.addEventListener('click', () => {
-            miModal.style.display = 'flex';
+        // Mostrar el modal al hacer clic en el sobre, con un pequeño retraso
+        envelope.addEventListener('click', () => {
+            setTimeout(() => {
+                miModal.classList.add('visible');
+            }, 1000); // 1 segundo de retraso para la animación
         });
 
+        // Cerrar el modal al hacer clic en el botón de cerrar 'x'
         cerrarModalBtn.addEventListener('click', () => {
-            miModal.style.display = 'none';
+            miModal.classList.remove('visible');
         });
 
+        // Cerrar el modal si el usuario hace clic fuera de él
         window.addEventListener('click', (event) => {
             if (event.target === miModal) {
-                miModal.style.display = 'none';
+                miModal.classList.remove('visible');
             }
         });
 
+        // Botón 'Sí' para abrir WhatsApp con un mensaje predefinido
         btnSi.addEventListener('click', () => {
-            const numero = "5215555555555";
+            const numero = "5215555555555"; // Reemplaza con el número de teléfono con código de país
             const mensaje = "¡Hola! 💕 Quiero decirte que sí, me encantaría 💖";
             const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensaje)}`;
             window.open(url, "_blank");
-            miModal.style.display = 'none';
+            miModal.classList.remove('visible');
         });
 
+        // Botón 'No' se mueve al pasar el mouse
         btnNo.addEventListener('mouseover', () => {
-            const x = Math.floor(Math.random() * 200) - 100;
-            const y = Math.floor(Math.random() * 200) - 100;
-            btnNo.style.transform = `translate(${x}px, ${y}px)`;
+            const container = miModal.querySelector('.modal-content');
+            const containerRect = container.getBoundingClientRect();
+            const btnRect = btnNo.getBoundingClientRect();
+
+            let newX = Math.random() * (containerRect.width - btnRect.width - 20) - (containerRect.width / 2);
+            let newY = Math.random() * (containerRect.height - btnRect.height - 20) - (containerRect.height / 2);
+
+            btnNo.style.transform = `translate(${newX}px, ${newY}px)`;
+        });
+
+        // Al salir del mouse del botón, lo regresa a su posición original
+        btnNo.addEventListener('mouseout', () => {
+             btnNo.style.transform = `translate(0, 0)`;
         });
     </script>
 </body>
