@@ -233,8 +233,12 @@
             font-weight: bold;
         }
 
-        /* Estilos para el botón dentro de la carta */
+        /* Estilos para el botón del modal */
         #btnDescubrir {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
             padding: 10px 20px;
             border: none;
             border-radius: 5px;
@@ -243,18 +247,30 @@
             font-size: 1em;
             cursor: pointer;
             font-weight: bold;
-            margin-top: 10px;
-            transition: background-color 0.3s ease;
+            z-index: 100; /* Asegura que esté por encima de todo */
+            transition: background-color 0.3s ease, opacity 0.5s ease;
+            opacity: 0;
+            pointer-events: none;
+        }
+        #btnDescubrir.show-button {
+            opacity: 1;
+            pointer-events: auto;
+            transition-delay: 1.5s; /* Retraso para que aparezca después de que la carta se abra */
         }
         #btnDescubrir:hover {
             background-color: #a02c21;
+        }
+        
+        /* Oculta el botón cuando la carta está cerrada */
+        .envelope:not(:hover) #btnDescubrir {
+            visibility: hidden;
         }
 
         /* Estilos para el modal */
         .modal {
             display: flex;
             position: fixed;
-            z-index: 100;
+            z-index: 200; /* Mayor que el botón para que se muestre correctamente */
             left: 0;
             top: 0;
             width: 100%;
@@ -342,11 +358,11 @@
                 <div class="letter">
                     <img src="https://img.freepik.com/vector-premium/pulgar-dedos-imprimir-marca-huella-dactilar-amor-corazon_53500-1839.jpg" alt="love1" class="custom-image">
                     <p>Cuanto más tiempo estoy contigo <span class="highlight">más te amo!</span></p>
-                    <button id="btnDescubrir">Haz clic para saber más 💖</button>
                     <img src="arlen_foto.jpeg" alt="love2" class="custom-image2">
                 </div>
             </div>
         </div>
+        <button id="btnDescubrir">Haz clic para saber más 💖</button>
     </div>
 
     <div id="miModal" class="modal">
@@ -373,31 +389,42 @@
             }
         });
 
-        const envelope = document.querySelector(".envelope");
+        const envelope = document.querySelector('.envelope');
         const btnDescubrir = document.getElementById('btnDescubrir');
         const miModal = document.getElementById('miModal');
         const cerrarModalBtn = document.getElementById('cerrarModal');
         const btnSi = document.getElementById('btnSi');
         const btnNo = document.getElementById('btnNo');
 
-        // Modificado: Se eliminó el evento del sobre y se añadió al botón
+        // Escucha el evento de mouseenter y mouseleave para simular el :hover y controlar el botón
+        envelope.addEventListener('mouseenter', () => {
+            envelope.classList.add('hovered');
+            // Agrega la clase para mostrar el botón después de un retraso
+            setTimeout(() => {
+                btnDescubrir.classList.add('show-button');
+            }, 1000); // El retraso coincide con la duración de la animación de la carta
+        });
+
+        envelope.addEventListener('mouseleave', () => {
+            envelope.classList.remove('hovered');
+            // Quita la clase para ocultar el botón
+            btnDescubrir.classList.remove('show-button');
+        });
+
         btnDescubrir.addEventListener('click', () => {
             miModal.classList.add('visible');
         });
 
-        // Cerrar el modal al hacer clic en el botón de cerrar 'x'
         cerrarModalBtn.addEventListener('click', () => {
             miModal.classList.remove('visible');
         });
 
-        // Cerrar el modal si el usuario hace clic fuera de él
         window.addEventListener('click', (event) => {
             if (event.target === miModal) {
                 miModal.classList.remove('visible');
             }
         });
 
-        // Botón 'Sí' para abrir WhatsApp con un mensaje predefinido
         btnSi.addEventListener('click', () => {
             const numero = "5215555555555"; // Reemplaza con el número de teléfono con código de país
             const mensaje = "¡Hola! 💕 Quiero decirte que sí, me encantaría 💖";
@@ -406,7 +433,6 @@
             miModal.classList.remove('visible');
         });
 
-        // Botón 'No' se mueve al pasar el mouse
         btnNo.addEventListener('mouseover', () => {
             const container = miModal.querySelector('.modal-content');
             const containerRect = container.getBoundingClientRect();
@@ -418,7 +444,6 @@
             btnNo.style.transform = `translate(${newX}px, ${newY}px)`;
         });
 
-        // Al salir del mouse del botón, lo regresa a su posición original
         btnNo.addEventListener('mouseout', () => {
              btnNo.style.transform = `translate(0, 0)`;
         });
